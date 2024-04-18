@@ -20,7 +20,7 @@ def generate_prompt(tables: str, question: str) -> str:
     {{ tables }}
 
     ===Response Guidelines
-    1. If the provided context is sufficient, please generate a valid query without any explanations for the question. The query should start with a comment containing the question being asked.
+    1. If the provided context is sufficient, please generate a valid query without any explanations for the question.
     2. If the provided context is insufficient, please explain why it can't be generated.
     3. Please use the most relevant table(s).
 
