@@ -1,0 +1,4 @@
+psycopg2==2.9.9
+Jinja2==3.1.2
+llama-cpp-python==0.2.61
+argparse==1.4.0
