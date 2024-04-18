@@ -21,8 +21,9 @@ options:
 
 ```
 
-## Example
+## Example Usage
 
+Heres an example of getting sql query of users with posts that have the highest number of views and reactions in the last 24 hours
 ### command:
 ```bash
 python main.py -m "./Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf" -d "postgresql://postgres:postgres@localhost:5432/postgres" -q "get users with post that has top views and top reactions in the last 24 hours"
