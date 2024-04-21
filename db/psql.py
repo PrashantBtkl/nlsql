@@ -62,8 +62,8 @@ class Database:
         :param table_schema: select the schema from which the query has to be genrated (default is 'public')
         """
         return self.execute_query("""
-            SELECT table_name, STRING_AGG(column_name, ', ')
-            FROM information_schema.columns
-            WHERE table_schema = 'public'
-            GROUP BY table_name;""")
+                SELECT table_name, string_agg(column_name || ' ' || data_type, '\n')
+                FROM information_schema.columns
+                WHERE table_schema = %s
+                GROUP BY table_name;""", (table_schema,))
 
