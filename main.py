@@ -25,10 +25,7 @@ def main():
 def tables_txt(results):
     tables = ""
     for _, row in enumerate(results):
-        tables += f"""
-        table: {row[0]}
-        columns: {row[1]}
-        """
+        tables += f"table: {row[0]}\ncolumns:\n{row[1]}\n\n"
     return tables
 
 if __name__ == "__main__":
