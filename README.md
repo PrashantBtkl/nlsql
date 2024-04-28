@@ -3,32 +3,31 @@
 Generates SQL query from natural language for your PostrgreSQL database. 
 Simply connects to your database, gets the schema and generates query appropriately.
 
-## Usage Guide
+## User Guide
 
-```bash
-usage: main.py [-h] -m MODEL_PATH -d DB_URL -q QUESTION
+you can use nlsql as httpserver and as a cli-command
 
-Convert natural language into SQL query
+## nlsql as http server
+1. start up the api server
+	```bash
+	python main.py -s
+	```
+2. get results via curl
+	```curl
+	curl --location 'http://localhost:8000/query/' \
+	--header 'Content-Type: application/json' \
+	--data-raw '{
+	"question": "get users with post that has top views and top reactions in the last 24 hours",
+	"db_url": "postgresql://postgres:postgres@localhost:5432/postgres"
+	}'
+	```
 
-options:
-  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model-path MODEL_PATH
-                        Path to the model file (in gguf format), if not provided it uses groq api for inference
-  -d DB_URL, --db-url DB_URL
-                        PostgreSQL database URL link
-  -q QUESTION, --question QUESTION
-                        Question to generate a SQL query
+## nlsql as cli command
 
-```
-
-## Example Usage
-
-Heres an example of getting sql query of users with posts that have the highest number of views and reactions in the last 24 hours
-### command:
 ```bash
 python main.py -m "./Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf" -d "postgresql://postgres:postgres@localhost:5432/postgres" -q "get users with post that has top views and top reactions in the last 24 hours"
 ```
-### Response:
+## Response
 ```sql
     SELECT DISTINCT ON (users.id) users.id, users.name
     FROM users
