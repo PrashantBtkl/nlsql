@@ -6,8 +6,8 @@ from prompts import text_to_sql_prompt
 
 def main():
     parser = argparse.ArgumentParser(description="Convert natural language into SQL query")
-    parser.add_argument("-m", "--model-path", type=str, required=True,
-                        help="Path to the model file (in gguf format)")
+    parser.add_argument("-m", "--model-path", type=str, required=False,
+                        help="Path to the model file (in gguf format), if not provided it uses groq api for inference")
     parser.add_argument("-d", "--db-url", type=str, required=True,
                         help="PostgreSQL database URL link")
     parser.add_argument("-q", "--question", type=str, required=True,
