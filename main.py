@@ -1,7 +1,7 @@
 import argparse
 
 from db import psql
-import llm
+from ai_assistant import local_llm, groq
 from prompts import text_to_sql_prompt
 
 def main():
@@ -18,17 +18,22 @@ def main():
     results = conn.get_tables()
     tables = tables_txt(results)
     prompt = text_to_sql_prompt.generate_prompt(tables, args.question)
-    result = llm.LLM(args.model_path).run_inference(prompt)
+    result = run_inference(args.model_path, prompt)
     print(result)
     conn.disconnect()
+
+def run_inference(model_path: str, prompt: str) -> str:
+    if model_path == None:
+        print("model not found, using groq to run inference")
+        return groq.LLM().run_inference(prompt)
+    return local_llm.LLM(model_path).run_inference(prompt)
+
+
 
 def tables_txt(results):
     tables = ""
     for _, row in enumerate(results):
-        tables += f"""
-        table: {row[0]}
-        columns: {row[1]}
-        """
+        tables += f"table: {row[0]}\ncolumns:\n{row[1]}\n\n"
     return tables
 
 if __name__ == "__main__":
