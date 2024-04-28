@@ -14,6 +14,7 @@ def generate_prompt(tables: str, question: str) -> str:
     1. If the provided context is sufficient, please generate a valid query without any explanations for the question.
     2. If the provided context is insufficient, please explain why it can't be generated.
     3. Please use the most relevant table(s).
+    4. Response should ONLY have SQL and no other text, SQL SHOULD NOT be in code block
 
     ===Question
     {{ question }}

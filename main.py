@@ -1,12 +1,12 @@
 import argparse
 
 from db import psql
-import llm
+from ai_assistant import local_llm, groq
 from prompts import text_to_sql_prompt
 
 def main():
     parser = argparse.ArgumentParser(description="Convert natural language into SQL query")
-    parser.add_argument("-m", "--model-path", type=str, required=True,
+    parser.add_argument("-m", "--model-path", type=str, required=False,
                         help="Path to the model file (in gguf format)")
     parser.add_argument("-d", "--db-url", type=str, required=True,
                         help="PostgreSQL database URL link")
@@ -18,9 +18,17 @@ def main():
     results = conn.get_tables()
     tables = tables_txt(results)
     prompt = text_to_sql_prompt.generate_prompt(tables, args.question)
-    result = llm.LLM(args.model_path).run_inference(prompt)
+    result = run_inference(args.model_path, prompt)
     print(result)
     conn.disconnect()
+
+def run_inference(model_path: str, prompt: str) -> str:
+    if model_path == None:
+        print("model not found, using groq to run inference")
+        return groq.LLM().run_inference(prompt)
+    return local_llm.LLM(model_path).run_inference(prompt)
+
+
 
 def tables_txt(results):
     tables = ""
