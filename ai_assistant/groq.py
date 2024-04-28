@@ -5,7 +5,7 @@ class LLM():
     def __init__(self):
         self.client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-    def run_inference(self, prompt: str) -> str:
+    async def run_inference(self, prompt: str) -> str:
         chat_completion = self.client.chat.completions.create(
         messages=[
              {
