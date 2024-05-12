@@ -1,0 +1,7 @@
+[project]
+name = "nlsql"
+version = "0.0.1"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
