@@ -1,6 +1,7 @@
 import argparse
 
 import helpers
+import asyncio
 from api import server
 from db import psql
 from ai_assistant import local_llm, groq
@@ -26,7 +27,7 @@ def main():
     results = conn.get_tables()
     tables = helpers.tables_txt(results)
     prompt = text_to_sql_prompt.generate_prompt(tables, args.question)
-    result = helpers.run_inference(args.model_path, prompt)
+    result = asyncio.run(helpers.run_inference(args.model_path, prompt))
     conn.disconnect()
     print(result)
 
