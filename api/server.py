@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import json
 
 import helpers
 from db import psql
@@ -12,13 +13,15 @@ class QueryRequest(BaseModel):
     use_local_llm: bool = False
 
 class QueryResponse(BaseModel):
-    result: str | None = None
+    error: bool = False
+    error_message: str | None = None
+    sql: str | None = None
 
 class API:
     def __init__(self):
         self.app = FastAPI()
 
-        @self.app.post("/query/")
+        @self.app.post("/query")
         async def generate_query(request: QueryRequest):
             conn = psql.Database(request.db_url)
             results = conn.get_tables()
@@ -28,7 +31,13 @@ class API:
             conn.disconnect()
 
             response = QueryResponse()
-            response.result = result.replace("\n", " ")
+            print(result)
+            json_result = json.loads(result)
+            print(json_result)
+            response.error_message = json_result["error_message"]
+            if response.error_message != "":
+                response.error = True
+            response.sql = json_result["sql"].replace("\n", " ")
             return response
 
     def run(self):

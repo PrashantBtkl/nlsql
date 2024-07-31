@@ -16,6 +16,12 @@ def generate_prompt(tables: str, question: str) -> str:
     3. Please use the most relevant table(s).
     4. Response should ONLY have SQL and no other text, SQL SHOULD NOT be in code block
 
+    ===Response JSON Format
+        {
+            "sql": "A generated SQL query when context is sufficient. By default return empty string",
+            "error_message": "An explanation of failing to generate the query. By default return empty string"
+        }
+
     ===Question
     {{ question }}
     """
