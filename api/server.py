@@ -30,14 +30,14 @@ class API:
             result = await groq.LLM().run_inference(prompt)
             conn.disconnect()
 
-            response = QueryResponse()
-            print(result)
             json_result = json.loads(result)
-            print(json_result)
+            response = QueryResponse()
+
             response.error_message = json_result["error_message"]
             if response.error_message != "":
                 response.error = True
             response.sql = json_result["sql"].replace("\n", " ")
+
             return response
 
     def run(self):
