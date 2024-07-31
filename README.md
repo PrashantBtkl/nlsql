@@ -14,7 +14,7 @@ you can use nlsql as httpserver and as a cli-command
 	```
 2. get results via curl
 	```curl
-	curl --location 'http://localhost:8000/query/' \
+	curl --location 'http://localhost:8000/query' \
 	--header 'Content-Type: application/json' \
 	--data-raw '{
 	"question": "get users with post that has top views and top reactions in the last 24 hours",
