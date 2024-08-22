@@ -1,7 +1,31 @@
-[project]
-name = "nlsql"
-version = "0.0.1"
-dynamic = ["dependencies"]
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
-[tool.setuptools.dynamic]
-dependencies = { file = ["requirements.txt"] }
+[tool.poetry]
+name = "nlsql"
+version = "0.0.2"
+description = "generates SQL query from natural language for your PostrgreSQL database "
+authors = ["Prashant Bhatkal <prashantbhatkal2000@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+#package-mode = false
+keywords = [
+    "postgres",
+	"sql",
+	"text-to-sq",
+	"llm"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Jinja2 = ">=3.1.2"
+llama-cpp-python = ">=0.2.61"
+fastapi =">=0.110.2"
+uvicorn = ">=0.29.0"
+pydantic = ">=2.7.1"
+groq = ">=0.9.0"
+psycopg2 = ">=2.9.9"
+
+[tool.poetry.scripts]
+nlsql = "nlsql.main:main"

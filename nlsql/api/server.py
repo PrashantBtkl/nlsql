@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import json
 
-import helpers
-from db import psql
-from ai_assistant import groq
-from prompts import text_to_sql_prompt
+import nlsql.helpers
+from nlsql.db import psql
+from nlsql.ai_assistant import groq
+from nlsql.prompts import text_to_sql_prompt
 
 class QueryRequest(BaseModel):
     question: str

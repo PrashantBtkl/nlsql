@@ -1,11 +1,11 @@
 import argparse
 
-import helpers
+import nlsql.helpers
 import asyncio
-from api import server
-from db import psql
-from ai_assistant import local_llm, groq
-from prompts import text_to_sql_prompt
+from nlsql.api import server
+from nlsql.db import psql
+from nlsql.ai_assistant import local_llm, groq
+from nlsql.prompts import text_to_sql_prompt
 
 def main():
     parser = argparse.ArgumentParser(description="Convert natural language into SQL query")
@@ -23,13 +23,16 @@ def main():
         s = server.API()
         s.run()
 
-    conn = psql.Database(args.db_url)
-    results = conn.get_tables()
-    tables = helpers.tables_txt(results)
-    prompt = text_to_sql_prompt.generate_prompt(tables, args.question)
-    result = asyncio.run(helpers.run_inference(args.model_path, prompt))
-    conn.disconnect()
-    print(result)
+    if args.db_url and args.question and args.model_path:
+        conn = psql.Database(args.db_url)
+        results = conn.get_tables()
+        tables = helpers.tables_txt(results)
+        prompt = text_to_sql_prompt.generate_prompt(tables, args.question)
+        result = asyncio.run(helpers.run_inference(args.model_path, prompt))
+        conn.disconnect()
+        print(result)
+    else:
+        print("db-url, model-path or question missing, use --help for more info")
 
 if __name__ == "__main__":
     main()

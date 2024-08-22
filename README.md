@@ -7,10 +7,15 @@ Simply connects to your database, gets the schema and generates query appropriat
 
 you can use nlsql as httpserver and as a cli-command
 
-## nlsql as http server
+## Installation
+```bash
+pip install nlsql
+```
+
+## run as http server
 1. start up the api server
 	```bash
-	python main.py -s
+	nlsql -s
 	```
 2. get results via curl
 	```curl
@@ -22,10 +27,10 @@ you can use nlsql as httpserver and as a cli-command
 	}'
 	```
 
-## nlsql as cli command
+## run as cli command
 
 ```bash
-python main.py -m "./Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf" -d "postgresql://postgres:postgres@localhost:5432/postgres" -q "get users with post that has top views and top reactions in the last 24 hours"
+nlsql -m "./Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf" -d "postgresql://postgres:postgres@localhost:5432/postgres" -q "get users with post that has top views and top reactions in the last 24 hours"
 ```
 ## Response
 ```sql

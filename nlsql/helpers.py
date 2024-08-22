@@ -1,4 +1,4 @@
-from ai_assistant import local_llm, groq
+from nlsql.ai_assistant import local_llm, groq
 
 async def run_inference(model_path: str, prompt: str) -> str:
     if model_path == None:
