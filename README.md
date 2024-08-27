@@ -1,4 +1,18 @@
-# NLSQL
+<p align="center">
+
+<h1 align="center">NLSQL</h1>
+
+<p align="center">
+
+ <div align="center">
+	 
+[![PyPi package version](https://img.shields.io/pypi/v/nlsql)](https://pypi.org/project/nlsql/)	 
+[![PyPi downloads](https://static.pepy.tech/badge/nlsql)](https://pypi.org/project/nlsql/)
+[![License](https://img.shields.io/pypi/l/nlsql)](https://pypi.org/project/nlsql/)	 
+[![PyPI version](https://img.shields.io/pypi/pyversions/nlsql?color=%2344CC11&style=flat-square)](https://pypi.org/project/nlsql/)
+ </div>
+<br>
+
 
 Generates SQL query from natural language for your PostrgreSQL database. 
 Simply connects to your database, gets the schema and generates query appropriately.
